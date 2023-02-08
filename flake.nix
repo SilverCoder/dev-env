@@ -17,5 +17,5 @@
               packages = config.packages ++ module.module.packages;
             } // module.module.env) { packages = [ ]; } modules);
         modules = [ inputs.rust ];
-      in { devShell.${system} = mkNixShell { inherit modules; }; });
+      in { devShell = mkNixShell { inherit modules; }; });
 }
