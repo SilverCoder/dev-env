@@ -5,7 +5,7 @@
     rust.url = "path:./rust";
   };
 
-  outputs = { nixpkgs, flake-utils, rust, ... }:
+  outputs = inputs@{ nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -19,7 +19,7 @@
               flake.module.env
             else
               { })) { packages = [ ]; } modules);
-        modules = { inherit rust; };
+        modules = { rust = inputs.rust; };
       in {
         devShell = mkNixShell { modules = (builtins.attrValues modules); };
         modules = { inherit modules; };
