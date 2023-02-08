@@ -1,10 +1,13 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    rust-overlay = { url = "github:oxalica/rust-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, ... }:
+  outputs = { nixpkgs, rust-overlay, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -12,14 +15,11 @@
 
         overlays = [ rust-overlay.overlays.default ];
       };
-    in
-    {
+    in {
       module = {
         packages = with pkgs; [ deno rustup ];
 
-        env = {
-          HELLO_WORLD = "test";
-        };
+        env = { HELLO_WORLD = "test"; };
       };
     };
 }
