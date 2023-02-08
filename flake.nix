@@ -12,11 +12,11 @@
         default-pkgs = pkgs;
         mkNixShell = { pkgs ? default-pkgs, modules }:
           with pkgs;
-          mkShell (builtins.foldl' (config: module:
+          mkShell (builtins.foldl' (config: flake:
             config // {
-              packages = config.packages ++ module.module.packages;
-            } // (if builtins.hasAttr "env" module.module then
-              module.module.env
+              packages = config.packages ++ flake.module.packages;
+            } // (if builtins.hasAttr "env" flake.module then
+              flake.module.env
             else
               { })) { packages = [ ]; } modules);
         modules = [ inputs.rust ];
