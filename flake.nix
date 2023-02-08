@@ -15,7 +15,10 @@
           mkShell (builtins.foldl' (config: module:
             config // {
               packages = config.packages ++ module.module.packages;
-            } // module.module.env) { packages = [ ]; } modules);
+            } // (if builtins.hasAttr "env" module.module then
+              module.module.env
+            else
+              { })) { packages = [ ]; } modules);
         modules = [ inputs.rust ];
       in { devShell = mkNixShell { inherit modules; }; });
 }
