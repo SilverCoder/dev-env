@@ -15,5 +15,12 @@
 
         overlays = [ rust-overlay.overlays.default ];
       };
-    in { module = { packages = with pkgs; [ deno rustup ]; }; };
+    in {
+      module = {
+        packages = with pkgs; [
+          rust-bin.stable.latest.default
+          rust-bin.stable.latest.rust-analyzer
+        ];
+      };
+    };
 }
