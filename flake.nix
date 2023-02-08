@@ -22,6 +22,6 @@
         modules = { rust = inputs.rust; };
       in {
         devShell = mkNixShell { modules = (builtins.attrValues modules); };
-        modules = { inherit modules; };
+        modules = modules;
       });
 }
