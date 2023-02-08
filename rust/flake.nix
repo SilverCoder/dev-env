@@ -15,11 +15,5 @@
 
         overlays = [ rust-overlay.overlays.default ];
       };
-    in {
-      module = {
-        packages = with pkgs; [ deno rustup ];
-
-        env = { HELLO_WORLD = "test"; };
-      };
-    };
+    in { module = { packages = with pkgs; [ deno rustup ]; }; };
 }
