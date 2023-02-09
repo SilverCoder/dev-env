@@ -61,6 +61,7 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
+        "lastModified": 1,
         "narHash": "sha256-s56wT8uy2hw1gu4RVhwAij7cuM9XtZYEK7Z9HhLaGrM=",
         "path": "./rust",
         "type": "path"
