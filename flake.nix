@@ -12,15 +12,22 @@
         default-pkgs = pkgs;
         mkNixShell = { pkgs ? default-pkgs, modules }:
           with pkgs;
-          mkShell (builtins.foldl' (config: flake:
-            config // {
-              packages = config.packages ++ flake.module.packages;
-            } // (if builtins.hasAttr "env" flake.module then
-              flake.module.env
-            else
-              { })) { packages = [ ]; } modules);
+          mkShell (builtins.foldl'
+            (config: flake:
+              config // {
+                packages = config.packages ++ flake.module.packages;
+              } // (if builtins.hasAttr "env" flake.module then
+                flake.module.env
+              else
+                { }))
+            { packages = [ ]; }
+            modules);
         modules = { inherit rust; };
-      in {
+      in
+      {
         devShell = mkNixShell { modules = (builtins.attrValues modules); };
+        module = {
+          inherit modules;
+        };
       });
 }
