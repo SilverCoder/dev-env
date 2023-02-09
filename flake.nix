@@ -26,8 +26,6 @@
       in
       {
         devShell = mkNixShell { modules = (builtins.attrValues modules); };
-        module = {
-          inherit modules;
-        };
+        inherit modules;
       });
 }
